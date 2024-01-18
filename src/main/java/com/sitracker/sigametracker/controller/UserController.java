@@ -73,7 +73,12 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
-        return userService.deleteUser(id);
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        try {
+            return userService.deleteUser(id);
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Something went wrong. Cannot delete user.");
+        }
     }
 }

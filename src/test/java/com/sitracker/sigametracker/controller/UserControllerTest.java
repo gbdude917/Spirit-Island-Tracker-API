@@ -6,7 +6,7 @@ import com.sitracker.sigametracker.dto.UpdatePasswordDto;
 import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.entity.User;
 import com.sitracker.sigametracker.exception.EmailAlreadyExistsException;
-import com.sitracker.sigametracker.exception.PasswordsDoNotMatchException;
+import com.sitracker.sigametracker.exception.UserNotFoundException;
 import com.sitracker.sigametracker.repository.UserRepository;
 import com.sitracker.sigametracker.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,15 +25,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
-import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -162,6 +157,33 @@ public class UserControllerTest {
                 () -> userService.updatePassword(9999L, updatePasswordDto));
 
         String expectedMessage = "User does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue("The messages don't match!", expectedMessage.equals(actualMessage));
+    }
+
+    @Test
+    public void UserController_deleteUser_ReturnsHttpNoContent() throws Exception {
+        // When userService.deleteUser is called with parameter 1L, return a ResponseEntity with HttpStatus.NO_CONTENT
+        when(userService.deleteUser(1L))
+                .thenReturn(new ResponseEntity<>(HttpStatus.NO_CONTENT));
+
+        ResultActions response = mockMvc.perform(delete("/api/v1/users/{id}", 1L));
+
+        response.andExpect(status().isOk());
+    }
+
+    @Test
+    public void UserController_deleteUser_ThrowsUserNotFoundException() throws Exception {
+        // When userService.deleteUser is called with parameter 1L, return a ResponseEntity with HttpStatus.NO_CONTENT
+        when(userService.deleteUser(9999L))
+                .thenThrow(new UserNotFoundException("This user does not exist! Cannot delete user."));
+
+        // Call the method and expect that the method throws an EntityNotFoundException
+        Exception exception = assertThrows(UserNotFoundException.class,
+                () -> userService.deleteUser(9999L));
+
+        String expectedMessage = "This user does not exist! Cannot delete user.";
         String actualMessage = exception.getMessage();
 
         assertTrue("The messages don't match!", expectedMessage.equals(actualMessage));
