@@ -9,6 +9,7 @@ import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.entity.User;
 import com.sitracker.sigametracker.exception.EmailAlreadyExistsException;
 import com.sitracker.sigametracker.exception.PasswordsDoNotMatchException;
+import com.sitracker.sigametracker.exception.UserNotFoundException;
 import com.sitracker.sigametracker.repository.UserRepository;
 import com.sitracker.sigametracker.exception.UsernameAlreadyExistsException;
 import com.sitracker.sigametracker.service.UserService;
@@ -22,8 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -101,8 +102,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<HttpStatus> deleteUser(Long id) {
-        if (!userRepository.existsById(id)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> deleteUser(Long id) throws Exception {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("This user does not exist! Cannot delete user.");
+        }
 
         userRepository.deleteById(id);
 

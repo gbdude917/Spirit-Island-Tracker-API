@@ -6,7 +6,6 @@ import com.sitracker.sigametracker.dto.RegisterDto;
 import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.dto.UpdatePasswordDto;
 import com.sitracker.sigametracker.entity.User;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {
@@ -21,5 +20,5 @@ public interface UserService {
 
     ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto) throws Exception;
 
-    ResponseEntity<HttpStatus> deleteUser(Long id);
+    ResponseEntity<?> deleteUser(Long id) throws Exception;
 }
