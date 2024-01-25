@@ -3,14 +3,10 @@ package com.sitracker.sigametracker.controller;
 import java.util.*;
 
 import com.sitracker.sigametracker.entity.Adversary;
-import com.sitracker.sigametracker.repository.AdversaryRepository;
 import com.sitracker.sigametracker.service.AdversaryService;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/v1/adversaries")

@@ -6,14 +6,10 @@ import com.sitracker.sigametracker.entity.GameSession;
 import com.sitracker.sigametracker.entity.Spirit;
 import com.sitracker.sigametracker.entity.User;
 import com.sitracker.sigametracker.exception.GameSessionNotFoundException;
-import com.sitracker.sigametracker.exception.UserNotFoundException;
 import com.sitracker.sigametracker.repository.GameSessionRepository;
-import com.sitracker.sigametracker.service.GameSessionService;
 import com.sitracker.sigametracker.service.impl.GameSessionServiceImpl;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,8 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-
-import javax.xml.transform.Result;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
