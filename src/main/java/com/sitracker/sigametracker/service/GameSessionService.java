@@ -15,8 +15,8 @@ public interface GameSessionService {
 
     ResponseEntity<GameSession> createGameSession(GameSession gameSession);
 
-    ResponseEntity<GameSession> updateGameSession(Long id, GameSession newGameSession);
+    ResponseEntity<GameSession> updateGameSession(Long id, GameSession newGameSession) throws Exception;
 
-    ResponseEntity<HttpStatus> deleteGameSession(Long id);
+    ResponseEntity<HttpStatus> deleteGameSession(Long id) throws Exception;
 
 }

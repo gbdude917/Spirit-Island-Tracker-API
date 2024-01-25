@@ -1,6 +1,7 @@
 package com.sitracker.sigametracker.service.impl;
 
 import com.sitracker.sigametracker.entity.GameSession;
+import com.sitracker.sigametracker.exception.GameSessionNotFoundException;
 import com.sitracker.sigametracker.repository.GameSessionRepository;
 import com.sitracker.sigametracker.service.GameSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,33 +50,31 @@ public class GameSessionServiceImpl implements GameSessionService {
     }
 
     @Override
-    public ResponseEntity<GameSession> updateGameSession(Long id, GameSession newGameSession) {
+    public ResponseEntity<GameSession> updateGameSession(Long id, GameSession newGameSession) throws Exception {
         Optional<GameSession> gameSessionData = gameSessionRepository.findById(id);
 
-        if (gameSessionData.isPresent()) {
-            GameSession updatedGS = gameSessionData.get();
+        if (gameSessionData.isEmpty()) throw new GameSessionNotFoundException("Game session not found!");
 
-            updatedGS.setUser(newGameSession.getUser());
-            updatedGS.setSpirit(newGameSession.getSpirit());
-            updatedGS.setAdversary(newGameSession.getAdversary());
-            updatedGS.setBoard(newGameSession.getBoard());
-            updatedGS.setSessionName(newGameSession.getSessionName());
-            updatedGS.setDescription(newGameSession.getDescription());
-            updatedGS.setPlayedOn(newGameSession.getPlayedOn());
-            updatedGS.setResult(newGameSession.getResult());
-            updatedGS.setIsCompleted(newGameSession.getIsCompleted());
 
-            return new ResponseEntity<>(gameSessionRepository.save(updatedGS), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        GameSession updatedGS = gameSessionData.get();
+
+        updatedGS.setUser(newGameSession.getUser());
+        updatedGS.setSpirit(newGameSession.getSpirit());
+        updatedGS.setAdversary(newGameSession.getAdversary());
+        updatedGS.setBoard(newGameSession.getBoard());
+        updatedGS.setSessionName(newGameSession.getSessionName());
+        updatedGS.setDescription(newGameSession.getDescription());
+        updatedGS.setPlayedOn(newGameSession.getPlayedOn());
+        updatedGS.setResult(newGameSession.getResult());
+        updatedGS.setIsCompleted(newGameSession.getIsCompleted());
+
+        return new ResponseEntity<>(gameSessionRepository.save(updatedGS), HttpStatus.OK);
 
     }
 
     @Override
-    public ResponseEntity<HttpStatus> deleteGameSession(Long id) {
-        if (!gameSessionRepository.existsById(id)) return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<HttpStatus> deleteGameSession(Long id) throws Exception {
+        if (!gameSessionRepository.existsById(id)) throw new GameSessionNotFoundException("Game session not found!");
 
         gameSessionRepository.deleteById(id);
 
