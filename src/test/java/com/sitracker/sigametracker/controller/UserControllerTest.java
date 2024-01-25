@@ -69,8 +69,8 @@ public class UserControllerTest {
     public void UserController_getUsers_ReturnListOfUsers() throws Exception {
         ResultActions response = mockMvc.perform(get("/api/v1/users"));
 
-        response.andDo(print()).
-                andExpect(status().isOk());
+        response.andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
