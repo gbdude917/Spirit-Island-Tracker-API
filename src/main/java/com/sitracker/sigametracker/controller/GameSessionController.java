@@ -3,6 +3,7 @@ package com.sitracker.sigametracker.controller;
 import java.util.*;
 
 import com.sitracker.sigametracker.entity.GameSession;
+import com.sitracker.sigametracker.exception.GameSessionNotFoundException;
 import com.sitracker.sigametracker.service.impl.GameSessionServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,17 @@ public class GameSessionController {
      * @return If id is not found, returns an HttpStatus.NOT_FOUND. Otherwise, returns HttpStatus.NO_CONTENT
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteGameSession(@PathVariable Long id) {
-        return gameSessionService.deleteGameSession(id);
+    public ResponseEntity<?> deleteGameSession(@PathVariable Long id) {
+        try {
+            return gameSessionService.deleteGameSession(id);
+        }
+        catch (GameSessionNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game session not found!");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong!");
+        }
+
     }
 
     /**
@@ -71,8 +81,16 @@ public class GameSessionController {
      * @return If id is not found, returns HttpStatus.NOT_FOUND. Otherwise, the new game session data and HttpStatus.OK
      */
     @PutMapping("/{id}")
-    public ResponseEntity<GameSession> updateGameSession(@PathVariable Long id, @RequestBody GameSession newGameSession) {
-        return gameSessionService.updateGameSession(id, newGameSession);
+    public ResponseEntity<?> updateGameSession(@PathVariable Long id, @RequestBody GameSession newGameSession) {
+        try {
+            return gameSessionService.updateGameSession(id, newGameSession);
+        }
+        catch (GameSessionNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game session not found!");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong!");
+        }
     }
 
 }
