@@ -14,8 +14,6 @@ public interface UserService {
 
     ResponseEntity<User> getUserById(Long id);
 
-    ResponseEntity<User> createUser(RegisterDto newUser);
-
     ResponseEntity<?> updateUsername(Long id, UpdateUsernameDto updateUsernameDto);
 
     ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto) throws Exception;

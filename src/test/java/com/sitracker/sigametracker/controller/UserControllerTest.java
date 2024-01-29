@@ -87,24 +87,25 @@ public class UserControllerTest {
         response.andExpect(status().isCreated());
     }
 
-    @Test
-    public void UserController_createUser_ThrowEmailAlreadyExistsException() throws Exception {
-        // Mocking the behavior when the email already exists
-        when(userService.createUser(any(RegisterDto.class)))
-                .thenThrow(new EmailAlreadyExistsException("This email already exists!"));
-
-        RegisterDto mockRegisterDto = new RegisterDto();
-        mockRegisterDto.setEmail("email@email.com");
-        mockRegisterDto.setUsername("DifferentUser890");
-        mockRegisterDto.setPassword("test123");
-
-        ResultActions response = mockMvc.perform(post("/api/v1/users/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(mockRegisterDto)));
-
-        response.andExpect(status().isConflict());
-        response.andExpect(MockMvcResultMatchers.content().string("Email is already in use"));
-    }
+    // TODO: Move this test to AuthController
+//    @Test
+//    public void UserController_createUser_ThrowEmailAlreadyExistsException() throws Exception {
+//        // Mocking the behavior when the email already exists
+//        when(userService.createUser(any(RegisterDto.class)))
+//                .thenThrow(new EmailAlreadyExistsException("This email already exists!"));
+//
+//        RegisterDto mockRegisterDto = new RegisterDto();
+//        mockRegisterDto.setEmail("email@email.com");
+//        mockRegisterDto.setUsername("DifferentUser890");
+//        mockRegisterDto.setPassword("test123");
+//
+//        ResultActions response = mockMvc.perform(post("/api/v1/users/register")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(mockRegisterDto)));
+//
+//        response.andExpect(status().isConflict());
+//        response.andExpect(MockMvcResultMatchers.content().string("Email is already in use"));
+//    }
 
     @Test
     public void UserController_updateUsername_ReturnsOk() throws Exception {

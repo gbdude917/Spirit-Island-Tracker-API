@@ -1,17 +1,13 @@
 package com.sitracker.sigametracker.service.impl;
 
-import java.net.URI;
 import java.util.*;
 
-import com.sitracker.sigametracker.dto.RegisterDto;
 import com.sitracker.sigametracker.dto.UpdatePasswordDto;
 import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.entity.User;
-import com.sitracker.sigametracker.exception.EmailAlreadyExistsException;
 import com.sitracker.sigametracker.exception.PasswordsDoNotMatchException;
 import com.sitracker.sigametracker.exception.UserNotFoundException;
 import com.sitracker.sigametracker.repository.UserRepository;
-import com.sitracker.sigametracker.exception.UsernameAlreadyExistsException;
 import com.sitracker.sigametracker.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,32 +42,6 @@ public class UserServiceImpl implements UserService {
 
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @Override
-    public ResponseEntity<User> createUser(RegisterDto newUser) {
-        // Check if email exists in database
-        if (userRepository.existsByEmail(newUser.getEmail())) {
-            throw new EmailAlreadyExistsException("This email already exists! Login with the associated username");
-        }
-
-        // Check if username exists in database
-        if (userRepository.existsByUsername(newUser.getUsername())) {
-            throw new UsernameAlreadyExistsException("Username: " + newUser.getUsername() + " already exists! Choose a new username or login with that username.");
-        }
-
-        // Create the new User object
-        User createdUser = new User();
-        createdUser.setUsername(newUser.getUsername());
-        createdUser.setEmail(newUser.getEmail());
-
-        // TODO: validate the password
-
-        createdUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-
-        userRepository.save(createdUser);
-
-        return ResponseEntity.created(URI.create("/api/v1/users/" + createdUser.getId())).body(createdUser);
     }
 
     @Override

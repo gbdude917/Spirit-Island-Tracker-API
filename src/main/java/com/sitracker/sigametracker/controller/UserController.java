@@ -37,20 +37,6 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createUser(@RequestBody RegisterDto registerDto) {
-        try {
-            return userService.createUser(registerDto);
-        }
-        catch(EmailAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already in use");
-        }
-        catch(UsernameAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already in use");
-        }
-    }
-
     @PatchMapping("/update-username/{id}")
     public ResponseEntity<?> updateUsername(@PathVariable Long id, @RequestBody UpdateUsernameDto updateUsernameDto) {
         return userService.updateUsername(id, updateUsernameDto);
