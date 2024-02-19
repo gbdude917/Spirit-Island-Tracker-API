@@ -14,6 +14,9 @@ public class Adversary {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Column(unique = true, nullable = false)
+    private String pathname;
+
     @Column(nullable = false)
     private String flag;
 
