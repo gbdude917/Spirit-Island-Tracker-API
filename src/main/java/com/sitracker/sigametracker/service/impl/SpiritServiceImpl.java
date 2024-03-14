@@ -33,4 +33,13 @@ public class SpiritServiceImpl implements SpiritService {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
+
+    @Override
+    public ResponseEntity<Spirit> getSpiritByPathname(String pathname) {
+        Spirit spirit = spiritRepository.findByPathname(pathname);
+
+        if (spirit == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(spirit, HttpStatus.OK);
+    }
 }

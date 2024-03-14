@@ -23,12 +23,17 @@ public class Spirit {
 
     public String getName() { return name; }
 
+    public String getPathname() { return pathname; }
+
     public String getImage() { return image; }
 
     /** Setters **/
     public void setId(Long id) { this.id = id; }
 
     public void setName(String name) { this.name = name; }
+
+    public void setPathname() { this.pathname = pathname; }
+
 
     public void setImage(String image) { this.image = image; }
 }

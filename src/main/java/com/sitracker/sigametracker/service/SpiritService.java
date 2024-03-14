@@ -9,4 +9,6 @@ public interface SpiritService {
     ResponseEntity<List<Spirit>> getAllSpirits();
 
     ResponseEntity<Spirit> getSpiritById(Long id);
+
+    ResponseEntity<Spirit> getSpiritByPathname(String pathname);
 }

@@ -40,4 +40,15 @@ public class AdversaryController {
         return adversaryService.getAdversaryById(id);
     }
 
+    /**
+     * Retrieve a specific adversary by pathname
+     *
+     * @param pathname The pathname corresponding ot the name of the adversary to be found
+     * @return The Adversary entity that matches the pathname parameter. Otherwise, 404 Not Found is thrown
+     */
+    @GetMapping("/pathname/{pathname}")
+    public ResponseEntity<Adversary> getAdversaryByPathname(@PathVariable String pathname) {
+        return adversaryService.getAdversaryByPathname(pathname);
+    }
+
 }

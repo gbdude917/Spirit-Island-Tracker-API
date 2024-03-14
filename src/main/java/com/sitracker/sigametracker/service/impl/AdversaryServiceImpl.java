@@ -32,4 +32,13 @@ public class AdversaryServiceImpl implements AdversaryService {
         return adversaryOptional.map(adversary -> new ResponseEntity<>(adversary, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @Override
+    public ResponseEntity<Adversary> getAdversaryByPathname(String pathname) {
+        Adversary adversary = adversaryRepository.findByPathname(pathname);
+
+        if (adversary == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(adversary, HttpStatus.OK);
+    }
 }

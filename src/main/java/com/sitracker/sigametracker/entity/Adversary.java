@@ -25,11 +25,15 @@ public class Adversary {
 
     public String getName() { return name; }
 
+    public String getPathname() { return pathname; }
+
     public String getFlag() { return flag; }
 
     /** Setters **/
     public void setId(Long id) { this.id = id; }
 
     public void setName(String name) { this.name = name; }
+
+    public void setPathname() { this.pathname = pathname; }
 
     public void setFlag(String flag) { this.flag = flag; }}

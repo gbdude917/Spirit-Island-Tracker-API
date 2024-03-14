@@ -10,4 +10,6 @@ public interface AdversaryService {
     ResponseEntity<List<Adversary>> getAllAdversaries();
 
     ResponseEntity<Adversary> getAdversaryById(Long id);
+
+    ResponseEntity<Adversary> getAdversaryByPathname(String pathname);
 }

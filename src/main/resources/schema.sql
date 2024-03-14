@@ -78,7 +78,7 @@ INSERT INTO spirits(id, name, pathname, image) VALUES
     (19, 'Shroud of Silent Mist', 'Shroud_of_Silent_Mist', 'https://spiritislandwiki.com/images/4/4e/Shroud_of_Silent_Mist.png'),
     (20, 'Vengeance as a Burning Plague', 'Vengeance_as_a_Burning_Plague', 'https://spiritislandwiki.com/images/f/f2/Vengeance_as_a_Burning_Plague.png'),
     (21, 'Fractured Days Split the Sky', 'Fractured_Days_Split_the_Sky', 'https://spiritislandwiki.com/images/8/81/Fractured_Days_Split_the_Sky.png'),
-    (22, 'Starlight Seeks Its Form', 'Starlight_Seeks_Its_Form', 'https://spiritislandwiki.com/index.php?title=Starlight_Seeks_Its_Form'),
+    (22, 'Starlight Seeks Its Form', 'Starlight_Seeks_Its_Form', 'https://spiritislandwiki.com/images/6/6b/Starlight_Seeks_Its_Form.png'),
     (23, 'Downpour Drenches the World', 'Downpour_Drenches_the_World', 'https://spiritislandwiki.com/images/7/74/Downpour_Drenches_the_World.png'),
     (24, 'Finder of Paths Unseen', 'Finder_of_Paths_Unseen', 'https://spiritislandwiki.com/images/d/d9/Finder_of_Paths_Unseen.png'),
     (25, 'Devouring Teeth Lurk Underfoot', 'Devouring_Teeth_Lurk_Underfoot', 'https://spiritislandwiki.com/images/d/dc/Devouring_Teeth_Lurk_Underfoot.png'),
