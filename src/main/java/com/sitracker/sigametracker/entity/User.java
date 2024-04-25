@@ -2,6 +2,8 @@ package com.sitracker.sigametracker.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,6 +20,9 @@ public class User {
     @Column(nullable = false)
 //    @JsonIgnore
     private String password;
+
+    @Column(nullable = false)
+    private Date registrationDate;
 
     public User() {
 
@@ -39,6 +44,8 @@ public class User {
 
     public String getPassword() { return password; }
 
+    public Date getRegistrationDate() { return registrationDate; }
+
     /** Setters **/
     public void setId(Long id) { this.id = id; }
 
@@ -47,6 +54,8 @@ public class User {
     public void setUsername(String username) { this.username = username; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
 
     public static class Builder {
         private Long id;

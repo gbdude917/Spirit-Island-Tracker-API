@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.Date;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -53,8 +54,9 @@ public class AuthServiceImpl implements AuthService {
         User createdUser = new User();
         createdUser.setUsername(newUser.getUsername());
         createdUser.setEmail(newUser.getEmail());
+        createdUser.setRegistrationDate(new Date());
 
-        // TODO: validate the password
+        // TODO: validate the password (contains symbols, of min length 7, etc.)
 
         createdUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 

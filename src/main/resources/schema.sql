@@ -3,7 +3,15 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    registration_date DATE DEFAULT CURRENT_DATE
+);
+
+-- Table: authorities
+CREATE TABLE IF NOT EXISTS authorities(
+    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    authority VARCHAR(255) NOT NULL
 );
 
 -- Table: spirits
@@ -25,7 +33,7 @@ CREATE TABLE IF NOT EXISTS adversaries (
 -- Table: game_sessions
 CREATE TABLE IF NOT EXISTS game_sessions (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES "user"(id),
+    user_id INTEGER NOT NULL REFERENCES users(id),
     spirit_id INTEGER NOT NULL REFERENCES spirits(id),
     adversary_id INTEGER NOT NULL REFERENCES adversaries(id),
     board VARCHAR(255) NOT NULL,
@@ -37,10 +45,15 @@ CREATE TABLE IF NOT EXISTS game_sessions (
 );
 
 -- Foreign key relationships
+ALTER TABLE authorities
+    ADD CONSTANT fk_user_id
+    FOREIGN KEY (user_id)
+    REFERENCES users(id) ON DELETE CASCADE;
+
 ALTER TABLE game_sessions
     ADD CONSTRAINT fk_user_id
     FOREIGN KEY (user_id)
-    REFERENCES users(id);
+    REFERENCES users(id) ON DELETE CASCADE;
 
 ALTER TABLE game_sessions
     ADD CONSTRAINT fk_spirit_id
@@ -53,8 +66,12 @@ ALTER TABLE game_sessions
     REFERENCES adversaries(id);
 
 -- TEST VALUES
-INSERT INTO users(id, email, username, password) VALUES
-    (1, 'email@email.com', 'username', 'password');
+INSERT INTO users(email, username, password) VALUES
+    ('email@email.com', 'username', 'password');
+
+INSERT INTO authorities( user_id, authority) VALUES
+    (1, 'VIEW_GAME_SESSIONS'),
+    (1, 'VIEW_CONFIGURE_ACCOUNT');
 
 INSERT INTO spirits(id, name, pathname, image) VALUES
     (1, 'Lightning''s Swift Strike', 'Lightnings_Swift_Strike', 'https://spiritislandwiki.com/images/c/c2/Lightning%27s_Swift_Strike.png'),
