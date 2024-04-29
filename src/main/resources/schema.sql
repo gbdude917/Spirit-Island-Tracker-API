@@ -1,6 +1,6 @@
 -- Table: users
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    user_id SERIAL PRIMARY KEY NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -9,14 +9,14 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Table: authorities
 CREATE TABLE IF NOT EXISTS authorities(
-    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
-    user_id INTEGER NOT NULL REFERENCES users(id),
+    authority_id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
     authority VARCHAR(255) NOT NULL
 );
 
 -- Table: spirits
 CREATE TABLE IF NOT EXISTS spirits (
-    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    spirit_id SERIAL PRIMARY KEY NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL UNIQUE,
     pathname VARCHAR(255) NOT NULL UNIQUE,
     image VARCHAR(255) NOT NULL
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS spirits (
 
 -- Table: adversaries
 CREATE TABLE IF NOT EXISTS adversaries (
-    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    adversary_id SERIAL PRIMARY KEY NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL UNIQUE,
     pathname VARCHAR(255) NOT NULL UNIQUE,
     flag VARCHAR(255) NOT NULL
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS adversaries (
 
 -- Table: game_sessions
 CREATE TABLE IF NOT EXISTS game_sessions (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    spirit_id INTEGER NOT NULL REFERENCES spirits(id),
-    adversary_id INTEGER NOT NULL REFERENCES adversaries(id),
+    game_session_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    spirit_id INTEGER NOT NULL REFERENCES spirits(spirit_id),
+    adversary_id INTEGER NOT NULL REFERENCES adversaries(adversary_id),
     board VARCHAR(255) NOT NULL,
     session_name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS game_sessions (
 
 -- Foreign key relationships
 ALTER TABLE authorities
-    ADD CONSTANT fk_user_id
+    ADD CONSTRAINT fk_user_id
     FOREIGN KEY (user_id)
     REFERENCES users(id) ON DELETE CASCADE;
 
@@ -69,11 +69,11 @@ ALTER TABLE game_sessions
 INSERT INTO users(email, username, password) VALUES
     ('email@email.com', 'username', 'password');
 
-INSERT INTO authorities( user_id, authority) VALUES
+INSERT INTO authorities(user_id, authority) VALUES
     (1, 'VIEW_GAME_SESSIONS'),
     (1, 'VIEW_CONFIGURE_ACCOUNT');
 
-INSERT INTO spirits(id, name, pathname, image) VALUES
+INSERT INTO spirits(spirit_id, name, pathname, image) VALUES
     (1, 'Lightning''s Swift Strike', 'Lightnings_Swift_Strike', 'https://spiritislandwiki.com/images/c/c2/Lightning%27s_Swift_Strike.png'),
     (2, 'River Surges in Sunlight', 'River_Surges_in_Sunlight', 'https://spiritislandwiki.com/images/f/ff/River_Surges_in_Sunlight.png'),
     (3, 'Shadows Flicker Like Flame', 'Shadows_Flicker_Like_Flame', 'https://spiritislandwiki.com/images/d/d2/Shadows_Flicker_Like_Flame.png'),
@@ -112,7 +112,7 @@ INSERT INTO spirits(id, name, pathname, image) VALUES
     (36, 'Wounded Waters Bleeding', 'Wounded_Waters_Bleeding', 'https://spiritislandwiki.com/images/2/24/Wounded_Waters_Bleeding.png'),
     (37, 'Dances Up Earthquakes', 'Dances_Up_Earthquakes', 'https://spiritislandwiki.com/images/4/4c/Dances_Up_Earthquakes.png');
 
-INSERT INTO adversaries(id, name, pathname, flag) VALUES
+INSERT INTO adversaries(adversary_id, name, pathname, flag) VALUES
     (1, 'Brandenburg-Prussia', 'Brandenburg-Prussia', 'https://spiritislandwiki.com/images/d/de/Brand-Prussia_Flag.png'),
     (2, 'England', 'England', 'https://spiritislandwiki.com/images/2/2e/England_WrinkledFlag.png'),
     (3, 'Sweden', 'Sweden', 'https://spiritislandwiki.com/images/4/4a/Sweden_WrinkledFlag.png'),
@@ -122,5 +122,5 @@ INSERT INTO adversaries(id, name, pathname, flag) VALUES
     (7, 'Scotland', 'Scotland', 'https://spiritislandwiki.com/images/9/9f/Scotland_WrinkledFlag.png'),
     (8, 'Habsburg Mining Expedition', 'Habsburg_Mining_Expedition', 'https://spiritislandwiki.com/images/1/13/Habsburg_Mining_Expedition_Flag.png');
 
-INSERT INTO game_sessions(id, user_id, spirit_id, adversary_id, board, session_name, description, played_on, result, is_completed) VALUES
+INSERT INTO game_sessions(game_session_id, user_id, spirit_id, adversary_id, board, session_name, description, played_on, result, is_completed) VALUES
     (1, 1, 1, 1, 'A', 'My First Game', 'This is my first game of Spirit Island!', '2023-12-20', 'Win', true);

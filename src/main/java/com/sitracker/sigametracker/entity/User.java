@@ -1,14 +1,17 @@
 package com.sitracker.sigametracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -23,6 +26,10 @@ public class User {
 
     @Column(nullable = false)
     private Date registrationDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Authority> authorities;
 
     public User() {
 
@@ -46,6 +53,8 @@ public class User {
 
     public Date getRegistrationDate() { return registrationDate; }
 
+    public Set<Authority> getAuthorities() { return authorities; }
+
     /** Setters **/
     public void setId(Long id) { this.id = id; }
 
@@ -56,6 +65,8 @@ public class User {
     public void setPassword(String password) { this.password = password; }
 
     public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
+
+    public void setAuthorities(Set<Authority> authorities) { this.authorities = authorities; }
 
     public static class Builder {
         private Long id;

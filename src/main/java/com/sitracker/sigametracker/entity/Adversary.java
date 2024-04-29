@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 public class Adversary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "adversary_id")
     private Long id;
 
     @Column(unique = true, nullable = false)

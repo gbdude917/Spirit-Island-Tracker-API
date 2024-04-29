@@ -30,16 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<List<User>> getUsers() {
-        // TODO: trim out the password
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<User> getUserById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-
-        // TODO: trim out the password
-
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

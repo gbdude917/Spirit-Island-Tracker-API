@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class GameSession {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "game_session_id")
     private Long id;
 
     @ManyToOne
