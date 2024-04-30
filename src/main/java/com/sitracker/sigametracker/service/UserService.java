@@ -7,8 +7,9 @@ import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.dto.UpdatePasswordDto;
 import com.sitracker.sigametracker.entity.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     ResponseEntity<List<User>> getUsers();
 

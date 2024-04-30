@@ -24,7 +24,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createUser(@RequestBody RegisterDto registerDto) {
         try {
-            return authSerivce.createUser(registerDto);
+            return authSerivce.registerUser(registerDto);
         }
         catch(EmailAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already in use");
