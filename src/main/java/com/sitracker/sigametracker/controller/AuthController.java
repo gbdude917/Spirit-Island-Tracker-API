@@ -2,7 +2,6 @@ package com.sitracker.sigametracker.controller;
 
 import com.sitracker.sigametracker.dto.LoginDto;
 import com.sitracker.sigametracker.dto.RegisterDto;
-import com.sitracker.sigametracker.entity.User;
 import com.sitracker.sigametracker.service.AuthService;
 import com.sitracker.sigametracker.exception.EmailAlreadyExistsException;
 import com.sitracker.sigametracker.exception.UsernameAlreadyExistsException;

@@ -2,7 +2,6 @@ package com.sitracker.sigametracker.service;
 
 import java.util.*;
 
-import com.sitracker.sigametracker.dto.RegisterDto;
 import com.sitracker.sigametracker.dto.UpdateUsernameDto;
 import com.sitracker.sigametracker.dto.UpdatePasswordDto;
 import com.sitracker.sigametracker.entity.User;
@@ -17,7 +16,7 @@ public interface UserService extends UserDetailsService {
 
     ResponseEntity<?> updateUsername(Long id, UpdateUsernameDto updateUsernameDto);
 
-    ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto) throws Exception;
+    ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto);
 
     ResponseEntity<?> deleteUser(Long id) throws Exception;
 }

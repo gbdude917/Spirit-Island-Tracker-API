@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto) throws Exception {
+    public ResponseEntity<?> updatePassword(Long id, UpdatePasswordDto updatePasswordDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         // If password old password doesn't equal original, throw an exception

@@ -16,7 +16,7 @@ public class MyUserDetails implements UserDetails {
 
     public User getUser() { return user; }
 
-    public void setUser() { this.user = user; }
+    public void setUser(User user) { this.user = user; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

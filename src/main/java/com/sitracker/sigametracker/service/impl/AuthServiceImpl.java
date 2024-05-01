@@ -10,7 +10,6 @@ import com.sitracker.sigametracker.security.JwtResponse;
 import com.sitracker.sigametracker.service.AuthService;
 import com.sitracker.sigametracker.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
 
     @Autowired
